@@ -24,16 +24,7 @@ tableToGraph <- function(tbl)
    g <- addEdge(tbl$a, tbl$b, g)
    edgeData(g, tbl$a, tbl$b, "edgeType") <- tbl$type
 
-   # g <- graph::addEdge("A", "B", g)
-   # g <- graph::addEdge("B", "C", g)
-   # g <- graph::addEdge("C", "A", g)
-   # edgeData(g, "A", "B", "edgeType") <- "phosphorylates"
-   # edgeData(g, "B", "C", "edgeType") <- "synthetic lethal"
-   # edgeData(g, "A", "B", "score") <- 35
-   # edgeData(g, "B", "C", "score") <- -12
-
    g
-
 
 } # tableToGraph
 #----------------------------------------------------------------------------------------------------
