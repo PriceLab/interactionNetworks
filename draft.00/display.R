@@ -32,7 +32,8 @@ run <- function()
 {
   tbl.aishah <- read.table("AishahsInteractionData.csv", sep=",", as.is=TRUE, header=TRUE)
   tbl.omar <- read.table("omarInteractionData.csv", sep=",", as.is=TRUE, header=TRUE)
-  g <- tableToGraph(tbl.aishah)
+  tbl.both <- rbind(tbl.aishah, tbl.omar)
+  g <- tableToGraph(tbl.both)
   rcy <- RCyjs()
   setGraph(rcy, g)
   layout(rcy, "cose")
@@ -40,3 +41,4 @@ run <- function()
 
 } # run
 #----------------------------------------------------------------------------------------------------
+
