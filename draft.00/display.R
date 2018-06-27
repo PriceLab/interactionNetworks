@@ -24,16 +24,7 @@ tableToGraph <- function(tbl)
    g <- addEdge(tbl$a, tbl$b, g)
    edgeData(g, tbl$a, tbl$b, "edgeType") <- tbl$type
 
-   # g <- graph::addEdge("A", "B", g)
-   # g <- graph::addEdge("B", "C", g)
-   # g <- graph::addEdge("C", "A", g)
-   # edgeData(g, "A", "B", "edgeType") <- "phosphorylates"
-   # edgeData(g, "B", "C", "edgeType") <- "synthetic lethal"
-   # edgeData(g, "A", "B", "score") <- 35
-   # edgeData(g, "B", "C", "score") <- -12
-
    g
-
 
 } # tableToGraph
 #----------------------------------------------------------------------------------------------------
@@ -41,6 +32,7 @@ run <- function()
 {
   tbl.aishah <- read.table("AishahsInteractionData.csv", sep=",", as.is=TRUE, header=TRUE)
   tbl.omar <- read.table("omarInteractionData.csv", sep=",", as.is=TRUE, header=TRUE)
+
   tbl.anna <- read.table("annaInteractionLog.csv", sep=",", as.is=TRUE, header=TRUE)
   tbl.ana <- read.table("anaInteractionData.csv", sep=",", as.is=TRUE, header=TRUE)
   tbl.brian <- read.table("brianInteractionData.csv", sep=",", as.is=TRUE, header=TRUE)
@@ -55,6 +47,7 @@ run <- function()
   tbl.all <- rbind(tbl.5,tbl.noah)
 
   g <- tableToGraph(tbl.all)
+
   rcy <- RCyjs()
   setGraph(rcy, g)
   layout(rcy, "grid")
@@ -62,3 +55,4 @@ run <- function()
 
 } # run
 #----------------------------------------------------------------------------------------------------
+

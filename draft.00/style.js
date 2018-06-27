@@ -20,7 +20,7 @@ vizmap = [
        "content": "data(id)",
        "border-width": "3px",
        "overlay-opacity": 0.5,
-       "overlay-color": "red"
+       "overlay-color": "purple"
        }},
 
    {selector: 'edge', css: {
