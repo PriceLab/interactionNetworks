@@ -9,7 +9,7 @@ library(shiny)
 library(shinyTime)
 
 ui <- fluidPage(headerPanel(
-                tags$h1("QIP."), windowTitle = "QIP."
+                tags$h2("Enter a new interaction"), windowTitle = "ISB Interactions"
                 ),
                 sidebarLayout(
                   sidebarPanel(
@@ -39,10 +39,10 @@ ui <- fluidPage(headerPanel(
                   ),
                   mainPanel(
                     tabsetPanel(
-			tabPanel("Network Example", verbatimTextOutput("Your network will display here")),
-                                 # img(src="network.png", height=450, width=750)),
 		        tabPanel("Project Summary", includeHTML("projectSummary.html")),
-        		tabPanel("Table", tableOutput("table"))
+			tabPanel("Your Existing Network", verbatimTextOutput("Your network will display here")),
+                                 # img(src="network.png", height=450, width=750)),
+        		tabPanel("Tabular View", tableOutput("table"))
       			)
                   )
                 )
