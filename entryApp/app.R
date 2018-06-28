@@ -72,6 +72,6 @@ shinyOptions <- list()
 if(Sys.info()[["nodename"]] == "trena.systemsbiology.net")
   shinyOptions <- list(host="0.0.0.0", port=60013, launch.browser=FALSE)
 
-shinyApp(ui=ui,server=server, options=shinyOptions)
+app <- shinyApp(ui=ui,server=server, options=shinyOptions)
 
   
