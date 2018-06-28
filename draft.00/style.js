@@ -9,15 +9,26 @@ vizmap = [
       "width": "mapData(count, 0.0, 110.0, 30.0, 100.0)",
       "height":"mapData(count, 0.0, 120.0, 30.0, 100.0)",
       //"background-color": "mapData(pearson, -1.0, 0, green, white)",
-      "background-color":"mapData(count, 0, 120, white, red)",
-      "font-size":"8px"}},
+       "background-color":"mapData(count, 0, 120, white, red)",
+       "font-size":"5px"}},
 
+    //*********************INTERNS NODE *******************************
     {selector:"node[employmentCategory='intern']", css: {
-        "shape": "roundrectangle"
-        }},
+        "shape": "roundrectangle",
+	"text-valign":"center",
+	"text-halign":"center",
+	 "content": "data(name)",
+      "border-color":"black","border-width":"2px",
+      "width": "mapData(count, 0.0, 150.0, 70.0, 140.0)",
+      "height":"mapData(count, 0.0, 140.0, 70.0, 140.0)",
+      //"background-color": "mapData(pearson, -1.0, 0, purple, white)",
+      "background-color":"yellow",
+	"font-size":"5px",
+	"font-color": "white",
+    }},
 
    {selector:"node:selected", css: {
-       "text-valign":"center",
+       "text-valign":"centere",
        "text-halign":"center",
        "border-color": "black",
        "content": "data(id)",
