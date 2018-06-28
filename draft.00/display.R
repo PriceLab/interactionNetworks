@@ -21,6 +21,11 @@ tableToGraph <- function(tbl)
    g <- addNode(people, g)
    nodeData(g, people, "name") <- people
 
+      # at present, all of the people in the "a" column are interns
+      # extract these, assign their employmentCategory appropriately
+   interns <- unique(tbl$a)
+   nodeData(g, interns, "employmentCategory") <- "intern"
+
    g <- addEdge(tbl$a, tbl$b, g)
    edgeData(g, tbl$a, tbl$b, "edgeType") <- tbl$type
 
@@ -50,7 +55,7 @@ run <- function()
 
   rcy <- RCyjs()
   setGraph(rcy, g)
-  layout(rcy, "grid")
+  layout(rcy, "cose")
   loadStyleFile(rcy, "style.js")
 
 } # run

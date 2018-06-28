@@ -12,6 +12,9 @@ vizmap = [
       "background-color":"mapData(count, 0, 120, white, red)",
       "font-size":"8px"}},
 
+    {selector:"node[employmentCategory='intern']", css: {
+        "shape": "roundrectangle"
+        }},
 
    {selector:"node:selected", css: {
        "text-valign":"center",
