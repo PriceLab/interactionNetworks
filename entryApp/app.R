@@ -33,13 +33,14 @@ ui <- fluidPage(headerPanel(
                     numericInput("dur", "Duration (min):", 2, min = 1),
                     actionButton(inputId = "submit", 
                                  label = "Submit"),
-			img(src="isb.png", height=20, width=20),
+			#img(src="isb.png", height=20, width=20),
                     
                     tableOutput("data")
                   ),
                   mainPanel(
                     tabsetPanel(
-			tabPanel("Network Example", img(src="network.png", height=450, width=750)), 
+			tabPanel("Network Example", verbatimTextOutput("Your network will display here")),
+                                 # img(src="network.png", height=450, width=750)), 
 		        tabPanel("Project Summary", verbatimTextOutput("summary")), 
         		tabPanel("Table", tableOutput("table"))
       			)
@@ -67,4 +68,10 @@ server <- function(input,output) {
   })
 }
 
-shinyApp(ui=ui,server=server)
+shinyOptions <- list()
+if(Sys.info()[["nodename"]] == "trena.systemsbiology.net")
+  shinyOptions <- list(host="0.0.0.0", port=60013, launch.browser=FALSE)
+
+shinyApp(ui=ui,server=server, options=shinyOptions)
+
+  
