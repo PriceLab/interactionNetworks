@@ -26,7 +26,7 @@ ui <- fluidPage(headerPanel(
                                   "Data" = "data",
                                   "Biology" = "bio",
                                   "Social" = "soc")),
-                    timeInput("time", "Time:", value = Sys.time()),
+                    timeInput("time", "Time:", value = Sys.time(), seconds=FALSE),
                     sliderInput("dur", "Duration (minutes):", min = 1, max = 120, value = 2),
                     actionButton(inputId = "submit",
                                  label = "Submit"),
@@ -72,10 +72,11 @@ server <- function(input,output) {
 				"duration" = input$dur,
 				stringsAsFactors = FALSE)
 
-			print(newLine)
         		filename <- sprintf("%s/interaction-%s-%s.RData", dataDir,input$name,Sys.time())
 			filename <- gsub(" ", "", filename, fixed = TRUE)
                         save(newLine, file = filename)
+
+                        print("Interaciton Logged.")
   })
 }
 
