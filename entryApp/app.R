@@ -31,26 +31,26 @@ ui <- fluidPage(headerPanel(
                                   "Social" = "soc")),
                     timeInput("time", "Time:", value = Sys.time()),
                     numericInput("dur", "Duration (min):", 2, min = 1),
-                    actionButton(inputId = "submit", 
+                    actionButton(inputId = "submit",
                                  label = "Submit"),
 			#img(src="isb.png", height=20, width=20),
-                    
+
                     tableOutput("data")
                   ),
                   mainPanel(
                     tabsetPanel(
 			tabPanel("Network Example", verbatimTextOutput("Your network will display here")),
-                                 # img(src="network.png", height=450, width=750)), 
-		        tabPanel("Project Summary", verbatimTextOutput("summary")), 
+                                 # img(src="network.png", height=450, width=750)),
+		        tabPanel("Project Summary", includeHTML("projectSummary.html")),
         		tabPanel("Table", tableOutput("table"))
       			)
                   )
                 )
                 )
-                
+
 
 server <- function(input,output) {
-  
+
   observeEvent(input$submit, {newLine <- data.frame("date" = as.character.Date(input$date),
     		      		"a" = input$name,
 				"b" = input$partner,
@@ -74,4 +74,4 @@ if(Sys.info()[["nodename"]] == "trena.systemsbiology.net")
 
 app <- shinyApp(ui=ui,server=server, options=shinyOptions)
 
-  
+
