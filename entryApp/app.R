@@ -40,7 +40,7 @@ ui <- fluidPage(headerPanel(
                     tabsetPanel(
 		        tabPanel("Project Summary", includeHTML("projectSummary.html")),
 			tabPanel("Your Existing Network", verbatimTextOutput("Your network will display here")),
-                                 # img(src="network.png", height=450, width=750)),
+                                 #img(src="network.png", height=450, width=750),
         		tabPanel("Tabular View", tableOutput("table"))
       			)
                   )
@@ -55,7 +55,7 @@ server <- function(input,output) {
     observeEvent(input$submit, {
       subCounter$countervalue <- subCounter$countervalue + 1
     })
-
+u
     output$count <- renderText({
         if(subCounter$countervalue == 1) {
             paste("You've submitted ", subCounter$countervalue, " interaction!")
