@@ -55,7 +55,7 @@ server <- function(input,output) {
     observeEvent(input$submit, {
       subCounter$countervalue <- subCounter$countervalue + 1
     })
-u
+
     output$count <- renderText({
         if(subCounter$countervalue == 1) {
             paste("You've submitted ", subCounter$countervalue, " interaction!")
