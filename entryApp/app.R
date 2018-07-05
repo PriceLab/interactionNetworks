@@ -84,7 +84,7 @@ server <- function(input,output, session) {
             "type" = input$type,
             "startTime" = as.character.Date(input$time),
             "duration" = input$dur,
-            "mode" = input$mode
+            "mode" = input$mode,
             stringsAsFactors = FALSE)
         
         filename <- sprintf("%s/interaction-%s-%s.RData", dataDir,input$name,Sys.time())
