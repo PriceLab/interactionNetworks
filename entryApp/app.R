@@ -37,7 +37,7 @@ ui <- fluidPage(
                           "Data" = "data",
                           "Biology" = "bio",
                           "Social" = "soc")),
-            radioButtons("mode", "Was it...?",
+            radioButtons("mode", "Interaction mode:",
                          c("In Person" = "inPerson",
                            "Email" = "email")),
             textOutput("timeTag"),
