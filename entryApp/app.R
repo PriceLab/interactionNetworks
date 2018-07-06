@@ -1,17 +1,25 @@
 library(shiny)
 library(shinyTime)
+library(shinythemes)
+
+#-------------------------------------------------------------------------------#
 
 internList <- read.table("internList.csv", sep="\t", header=FALSE, fill=TRUE)
 staffList <- read.table("isbAllStaff",header=FALSE, sep="\t", fill=TRUE)
 dataDir <- "data"
 newLine <- ""
 
+#-------------------------------------------------------------------------------#
+
 ui <- fluidPage(
+    
+    theme = shinytheme("lumen"),
     tags$head(),
     headerPanel(
         tags$h2("Enter a new interaction"),
         windowTitle = "ISB Interactions"
     ),
+    
     sidebarLayout(
         sidebarPanel(
             dateInput('date',
@@ -52,6 +60,7 @@ ui <- fluidPage(
             )
         )
     )
+    
 )
 
 
@@ -94,7 +103,10 @@ server <- function(input,output, session) {
         subCounter$countervalue <- subCounter$countervalue + 1
         print("Interaciton Logged.")
     })
+    
 }
+
+#--------------------------------------------------------------------------------#
 
 shinyOptions <- list()
 
@@ -105,3 +117,5 @@ if(Sys.info()[["nodename"]] == "trena.systemsbiology.net"){
 }
 
 app <- shinyApp(ui=ui,server=server, options=shinyOptions)
+
+#--------------------------------------------------------------------------------#
