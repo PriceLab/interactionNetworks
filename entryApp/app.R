@@ -40,7 +40,7 @@ ui <- fluidPage(
             radioButtons("mode", "Was it...?",
                          c("In Person" = "inPerson",
                            "Email" = "email")),
-            tags$b(textOutput("timeTag")),
+            textOutput("timeTag"),
             actionButton("to_current_time", "Current time"),
             timeInput("time", "", seconds=FALSE),
             sliderInput("dur", "Duration (minutes):",
