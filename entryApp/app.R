@@ -5,6 +5,8 @@ library(shinythemes)
 #-------------------------------------------------------------------------------#
 
 internList <- read.table("internList.csv", sep="\t", header=FALSE, fill=TRUE)
+hsInternList <- read.table("hsInternList.csv", sep="\t", header=FALSE, fill=TRUE)
+switchList <- internList
 staffList <- read.table("isbAllStaff",header=FALSE, sep="\t", fill=TRUE)
 dataDir <- "data"
 newLine <- ""
@@ -27,8 +29,18 @@ ui <- fluidPage(
                       value = NULL,
                       min = "2018-06-01",
                       max = "2018-08-31"),
+            radioButtons("grade", NULL,
+                         c("Undergradute Intern" = "under",
+                           "High School Intern" = "high"),
+                         inline=TRUE),
+
             selectInput("name", "Who are you?",
                         choices = internList[[1]]),
+            
+            #selectInput("name", "Who are you?",
+                        #choices = internList[[1]]),
+
+            
             selectInput("partner", "Who did you interact with?",
                         choices = staffList[[1]]),
             selectInput("type", "Interaction Type:",
@@ -39,7 +51,8 @@ ui <- fluidPage(
                           "Social" = "soc")),
             radioButtons("mode", "Interaction mode:",
                          c("In Person" = "inPerson",
-                           "Email" = "email")),
+                           "Email" = "email"),
+                         inline=TRUE),
             textOutput("timeTag"),
             actionButton("to_current_time", "Current time"),
             timeInput("time", "", seconds=FALSE),
@@ -65,6 +78,15 @@ ui <- fluidPage(
 
 
 server <- function(input,output, session) {
+
+    observeEvent(input$grade, {
+        if(input$grade == "under"){
+            switchList <- internList
+        } else {
+            switchList <- hsInternList
+        }
+        updateSelectInput(session, "name", choices = switchList[[1]])
+        })
     
     observeEvent(input$to_current_time, {
         updateTimeInput(session, "time", value = Sys.time())
