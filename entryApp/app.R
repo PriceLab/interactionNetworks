@@ -33,14 +33,8 @@ ui <- fluidPage(
                          c("Undergradute Intern" = "under",
                            "High School Intern" = "high"),
                          inline=TRUE),
-
             selectInput("name", "Who are you?",
                         choices = internList[[1]]),
-            
-            #selectInput("name", "Who are you?",
-                        #choices = internList[[1]]),
-
-            
             selectInput("partner", "Who did you interact with?",
                         choices = staffList[[1]]),
             selectInput("type", "Interaction Type:",
