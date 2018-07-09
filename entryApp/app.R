@@ -48,6 +48,7 @@ ui <- fluidPage(
                           "Programming" = "prg",
                           "Data" = "data",
                           "Biology" = "bio",
+			  "Education" = "edu",
                           "Social" = "soc")),
             radioButtons("mode", "Interaction mode:",
                          c("In Person" = "inPerson",
