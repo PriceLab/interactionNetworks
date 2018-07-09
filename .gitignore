@@ -2,6 +2,7 @@
 .Rhistory
 .Rapp.history
 nohup.out
+entryApp/data/
 
 # Session Data files
 .RData
