@@ -1,6 +1,7 @@
 library(shiny)
 library(shinyTime)
 library(shinythemes)
+library(DT)
 
 source("dirToTable.R")
 
@@ -70,7 +71,7 @@ ui <- fluidPage(
                 tabPanel("Your Existing Network",
                          "Your network will display here... Soon!"),
                 tabPanel("Tabular View",
-                         tableOutput("table"))
+                         DT::dataTableOutput("table"))
             )
         )
     )
@@ -80,7 +81,7 @@ ui <- fluidPage(
 
 server <- function(input,output, session) {
 
-    output$table <- renderTable(tbl.master)
+    output$table <- DT::renderDataTable(tbl.master)
     
     observeEvent(input$grade, {
         if(input$grade == "under"){
