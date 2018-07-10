@@ -2,13 +2,19 @@ library(shiny)
 library(shinyTime)
 library(shinythemes)
 
+source("dirToTable.R")
+
 #-------------------------------------------------------------------------------#
 
 internList <- read.table("internList.csv", sep="\t", header=FALSE, fill=TRUE)
 hsInternList <- read.table("hsInternList.csv", sep="\t", header=FALSE, fill=TRUE)
 switchList <- internList
 staffList <- read.table("isbAllStaff",header=FALSE, sep="\t", fill=TRUE)
-dataDir <- "data"
+dir <- "data"
+
+tbl.master <- data.frame()
+tbl.master <- dirToTable(dir)
+
 newLine <- ""
 
 #-------------------------------------------------------------------------------#
@@ -74,6 +80,8 @@ ui <- fluidPage(
 
 server <- function(input,output, session) {
 
+    output$table <- renderTable(tbl.master)
+    
     observeEvent(input$grade, {
         if(input$grade == "under"){
             switchList <- internList
@@ -113,7 +121,7 @@ server <- function(input,output, session) {
             "mode" = input$mode,
             stringsAsFactors = FALSE)
         
-        filename <- sprintf("%s/interaction-%s-%s.RData", dataDir,input$name,Sys.time())
+        filename <- sprintf("%s/interaction-%s-%s.RData", dir,input$name,Sys.time())
         filename <- gsub(" ", "", filename, fixed = TRUE)
         save(newLine, file = filename)
         
