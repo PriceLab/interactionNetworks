@@ -81,7 +81,7 @@ ui <- fluidPage(
 
 server <- function(input,output, session) {
 
-    output$table <- DT::renderDataTable(tbl.master)
+    #output$table <- DT::renderDataTable(tbl.master) #interactive table for all interactions 
     
     observeEvent(input$grade, {
         if(input$grade == "under"){
