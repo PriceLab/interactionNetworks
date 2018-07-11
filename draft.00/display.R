@@ -50,12 +50,11 @@ run <- function()
   tbl.4 <- rbind(tbl.3,tbl.brian)
   tbl.5 <- rbind(tbl.4,tbl.ioanna)
   tbl.all <- rbind(tbl.5,tbl.noah)
-
   g <- tableToGraph(tbl.all)
 
   rcy <- RCyjs()
   setGraph(rcy, g)
-  layout(rcy, "cose")
+layout(rcy, "cose")
   loadStyleFile(rcy, "style.js")
 
 } # run
