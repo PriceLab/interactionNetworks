@@ -4,7 +4,7 @@ library(RCyjs)
 #----------------------------------------------------------------------------------------------------
 tableToGraph <- function(tbl)
 {
-   stopifnot(colnames(tbl) == c("date", "a", "b", "type", "startTime", "duration"))
+   stopifnot(colnames(tbl) == c("date", "a", "b", "type", "startTime", "duration","mode"))
 
    g <-graphNEL(edgemode = "directed")
 
@@ -52,16 +52,11 @@ run <- function()
   tbl.all <- rbind(tbl.5,tbl.noah)
 
   g <- tableToGraph(tbl.all)
+
   rcy <- RCyjs()
-  Sys.sleep(5)
-
   setGraph(rcy, g)
-  Sys.sleep(5)
   layout(rcy, "cose")
-  Sys.sleep(5)
   loadStyleFile(rcy, "style.js")
-
-  return(rcy)
 
 } # run
 #----------------------------------------------------------------------------------------------------
