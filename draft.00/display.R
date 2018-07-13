@@ -4,7 +4,7 @@ library(RCyjs)
 #----------------------------------------------------------------------------------------------------
 tableToGraph <- function(tbl)
 {
-   stopifnot(colnames(tbl) == c("date", "a", "b", "type", "startTime", "duration"))
+   stopifnot(colnames(tbl) == c("date", "a", "b", "type", "startTime", "duration","mode"))
 
    g <-graphNEL(edgemode = "directed")
 
