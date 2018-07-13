@@ -1,22 +1,35 @@
 library(RCyjs)
+library(igraph)
+source("analysis.R")
 print(load("dataframe_07-10.RData"))
 tbl$signature <- paste(tbl$a, tbl$b, sep=":")
 
-g <- new("graphNEL", edgemode = "directed")
-nodeDataDefaults(g, attr = "type") <- "undefined"
-edgeDataDefaults(g, attr = "count") <- 0
+gnel <- new("graphNEL", edgemode = "undirected")
+#gnel <- new("graphNEL", edgemode = "directed")
 
 all.nodes <- c(unique(c(tbl$a, tbl$b)))
 duplicated.interactions <- which(duplicated(tbl$signature))
 tbl.unique <- tbl[-duplicated.interactions,]
 
-g <- graph::addNode(all.nodes, g)
-g <- graph::addEdge(tbl.unique$a, tbl.unique$b, g)
-g
+gnel <- graph::addNode(all.nodes, gnel)
+gnel <- graph::addEdge(tbl.unique$a, tbl.unique$b, gnel)
+gi <- igraph.from.graphNEL(gnel, name = TRUE, weight = TRUE, unlist.attrs = TRUE)
+newman <- community.newman(gi)
+print(head(newman))
+
+nodeDataDefaults(gnel, attr = "type") <- "undefined"
+nodeDataDefaults(gnel, attr="newman") <- 0
+edgeDataDefaults(gnel, attr = "count") <- 0
+
+nodeData(gnel, nodes(gnel), attr="newman") <- newman
+
+gnel
+
 rcy <- RCyjs()
-setGraph(rcy, g)
+setGraph(rcy, gnel)
 layout(rcy, "cose")
 layout(rcy, "cola")
+#layout(rcy, "circle")
 
 
 tbl.counts <- as.data.frame(table(tbl$signature), stringsAsFactors=FALSE)
@@ -24,8 +37,9 @@ count.names <- tbl.counts$Var1
 tokens <- strsplit(count.names, split=":")
 tbl.x <- do.call(rbind, lapply(tokens, function(token.pair) data.frame(a=token.pair[1], b=token.pair[2], stringsAsFactors=FALSE)))
 tbl.x$count <- tbl.counts$Freq
-edgeData(g, tbl.x$a, tbl.x$b, attr="count") <- tbl.x$count
+edgeData(gnel, tbl.x$a, tbl.x$b, attr="count") <- tbl.x$count
 loadStyleFile(rcy, "style.js")
+#loadStyleFile(rcy, "updateStyle.js")
 
 
 tbl.freq <- as.data.frame(table(tbl$signature))
