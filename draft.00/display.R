@@ -32,7 +32,8 @@ tableToGraph <- function(tbl)
    g
 
 } # tableToGraph
-#----------------------------------------------------------------------------------------------------
+
+                                        #----------------------------------------------------------------------------------------------------
 run <- function()
 {
   tbl.aishah <- read.table("AishahsInteractionData.csv", sep=",", as.is=TRUE, header=TRUE)
