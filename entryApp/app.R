@@ -137,7 +137,7 @@ server <- function(input,output, session) {
 shinyOptions <- list()
 
 if(Sys.info()[["nodename"]] == "trena.systemsbiology.net"){
-    port <- 60013
+    port <- 60020
     printf("running on trena, using port %d", port)
     shinyOptions <- list(host="0.0.0.0", port=port, launch.browser=FALSE)
 }
