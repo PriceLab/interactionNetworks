@@ -3,7 +3,7 @@ library(shinyTime)
 library(shinythemes)
 library(DT)
 
-source("dirToTable.R")
+#source("dirToTable.R")
 
 #-------------------------------------------------------------------------------#
 
@@ -15,7 +15,7 @@ staffList <- read.table("isbAllStaff",header=FALSE, sep="\t", fill=TRUE)
 dir <- "data"
 
 tbl.master <- data.frame()
-tbl.master <- dirToTable(dir)
+#tbl.master <- dirToTable(dir)
 
 newLine <- ""
 
