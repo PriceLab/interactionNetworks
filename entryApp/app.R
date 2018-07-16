@@ -9,6 +9,7 @@ source("dirToTable.R")
 
 internList <- read.table("internList.csv", sep="\t", header=FALSE, fill=TRUE)
 hsInternList <- read.table("hsInternList.csv", sep="\t", header=FALSE, fill=TRUE)
+otherList <- read.table("extraList.csv", sep="\t", header=FALSE, fill=TRUE)
 switchList <- internList
 staffList <- read.table("isbAllStaff",header=FALSE, sep="\t", fill=TRUE)
 dir <- "data"
@@ -38,7 +39,8 @@ ui <- fluidPage(
                       max = "2018-08-31"),
             radioButtons("grade", NULL,
                          c("Undergradute Intern" = "under",
-                           "High School Intern" = "high"),
+                           "High School Intern" = "high",
+                           "Other" = "other"),
                          inline=TRUE),
             selectInput("name", "Who are you?",
                         choices = internList[[1]]),
@@ -86,8 +88,10 @@ server <- function(input,output, session) {
     observeEvent(input$grade, {
         if(input$grade == "under"){
             switchList <- internList
-        } else {
+        } else if(input$grade == "high") {
             switchList <- hsInternList
+        } else {
+            switchList <- otherList
         }
         updateSelectInput(session, "name", choices = switchList[[1]])
         })
