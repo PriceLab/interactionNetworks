@@ -3,7 +3,6 @@ library(igraph)
 source("analysis.R")
 print(load("dataframe_07-10.RData"))
 print(load("interaction-bundle.RData"))
-
                                         #hack
 newLine$tpye <- NULL
 tbl <- rbind(tbl, newLine)
