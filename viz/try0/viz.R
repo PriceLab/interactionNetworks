@@ -35,7 +35,6 @@ layout(rcy, "cose")
 layout(rcy, "cola")
 #layout(rcy, "circle")
 
-
 tbl.counts <- as.data.frame(table(tbl$signature), stringsAsFactors=FALSE)
 count.names <- tbl.counts$Var1
 tokens <- strsplit(count.names, split=":")
