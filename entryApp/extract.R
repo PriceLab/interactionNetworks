@@ -1,44 +1,31 @@
-                                        # for extracting new data into .RData files
-path = "~/github/interactionNetworks/entryApp/data"
-
-extract <- data.frame(matrix(ncol=7, nrow=0))
-names <- c("date", "a", "b","type","startTime","duration","mode")
-colnames(extract) <- names
-
-file.name <- dir(path, pattern = ".RData")
-print(head(file.name))
-print(extract)
-print(length(file.name))
-
-extract <- function()
-{
-    #for(i in 1:length(file.name)) {
-    for(i in file.name[1:3]) {    
-        print(i)
-
-	load(i)
-	
-        #file.unload <- print(load(file.name))
-        #file <- read.table(load(file.name[i]), header=TRUE, sep="\t", stringsAsFactors=FALSE)
-	
-        extract <- rbind(extract, newLine)
-    }
-    print(head(extract))
-}
-  
-
-# my approach
-
 directory = "~/github/interactionNetworks/entryApp/data"
 file.names <- file.path(directory, dir(directory, pattern=".RData$"))
+filename <- sprintf("interaction_bundle-%s.RData", Sys.Date())
+filename <- gsub(" ", "", filename, fixed = TRUE)
 
-loadAndFix <- function (file.name){
-    load(file.name)
-    if(ncol(newLine) == 6)
-        newLine$mode <- "inPerson"
+loadAndFix <- function (file.names){
+    
+    load(file.names)
+    
+    if(ncol(newLine) == 6) {
+    	 newLine$mode <- "inPerson"
+         }
+    if(ncol(newLine) ==8) {
+         newLine$tpye <- NULL
+	 }
+    if(newLine$b == "Anna Hughes Hoge") {
+         newLine$b <- "Anna Hoge"
+	 }
+    if(newLine$a == "Ethan Hamilton" && newLine$b == "Leroy Hood") {
+         newLine <- NULL
+	 }
+  
     return(newLine)
     }
 
 tbls.all <- lapply(file.names, loadAndFix)
+
 tbl <- do.call(rbind, tbls.all)
 dim(tbl)
+
+save(tbl, file = filename)
