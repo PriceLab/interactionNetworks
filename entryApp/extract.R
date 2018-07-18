@@ -26,3 +26,19 @@ extract <- function()
     print(head(extract))
 }
   
+
+# my approach
+
+directory = "~/github/interactionNetworks/entryApp/data"
+file.names <- file.path(directory, dir(directory, pattern=".RData$"))
+
+loadAndFix <- function (file.name){
+    load(file.name)
+    if(ncol(newLine) == 6)
+        newLine$mode <- "inPerson"
+    return(newLine)
+    }
+
+tbls.all <- lapply(file.names, loadAndFix)
+tbl <- do.call(rbind, tbls.all)
+dim(tbl)
