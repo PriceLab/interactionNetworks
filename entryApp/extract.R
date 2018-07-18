@@ -6,17 +6,21 @@ names <- c("date", "a", "b","type","startTime","duration","mode")
 colnames(extract) <- names
 
 file.name <- dir(path, pattern = ".RData")
-print(file.name)
+print(head(file.name))
 print(extract)
 print(length(file.name))
 
 extract <- function()
 {
-    for(i in 1:length(file.name)) {
-        
-        print(load(file.name[i]))
+    #for(i in 1:length(file.name)) {
+    for(i in file.name[1:3]) {    
+        print(i)
+
+	load(i)
+	
         #file.unload <- print(load(file.name))
         #file <- read.table(load(file.name[i]), header=TRUE, sep="\t", stringsAsFactors=FALSE)
+	
         extract <- rbind(extract, newLine)
     }
     print(head(extract))
