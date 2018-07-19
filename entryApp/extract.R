@@ -16,10 +16,7 @@ loadAndFix <- function (file.names){
     if(newLine$b == "Anna Hughes Hoge") {
          newLine$b <- "Anna Hoge"
 	 }
-    if(newLine$a == "Ethan Hamilton" && newLine$b == "Leroy Hood") {
-         newLine <- NULL
-	 }
-  
+
     return(newLine)
     }
 
