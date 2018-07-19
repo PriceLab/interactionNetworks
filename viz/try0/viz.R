@@ -1,13 +1,17 @@
 library(RCyjs)
 library(igraph)
 source("analysis.R")
-print(load("dataframe_07-10.RData"))
-print(load("interaction-bundle.RData"))
+#print(load("dataframe_07-10.RData"))
+                                        #print(load("interaction-bundle.RData"))
+print(load("interaction_bundle-2018-07-18.RData"))
+print(head(tbl))
                                         #hack
-newLine$tpye <- NULL
-tbl <- rbind(tbl, newLine)
-tbl$signature <- paste(tbl$a, tbl$b, sep=":")
+#newLine$tpye <- NULL
+                                        #tbl <- rbind(tbl, newLine)
+tbl
 
+tbl$signature <- paste(tbl$a, tbl$b, sep=":")
+browser()
 gnel <- new("graphNEL", edgemode = "undirected")
 #gnel <- new("graphNEL", edgemode = "directed")
 
