@@ -1,17 +1,34 @@
 library(RCyjs)
 library(igraph)
 source("analysis.R")
-#print(load("dataframe_07-10.RData"))
-                                        #print(load("interaction-bundle.RData"))
-print(load("interaction_bundle-2018-07-18.RData"))
-print(head(tbl))
-                                        #hack
-#newLine$tpye <- NULL
-                                        #tbl <- rbind(tbl, newLine)
+print(load("interaction_bundle-2018-07-19.RData"))
+
 tbl
 
+tbl <- tbl[-c(587),]
+
+
+#firgure out how to automate the removal of compromised rows with empty spaces
+badA <- list()
+badB <- ""
+
+#for(i in nrow(tbl)) {
+#    badA <- which(nchar(tbl$a) == 0)
+                                        #    }
+emptyNode <- function(tbl) {
+    for(i in 1:nrow(tbl)) {
+        if(nchar(tbl$b[i]) == 0){
+            x <- which(nchar(tbl$b) == 0)
+        } else {
+            next
+        }
+    }
+    return(x)
+}
+
+
 tbl$signature <- paste(tbl$a, tbl$b, sep=":")
-browser()
+
 gnel <- new("graphNEL", edgemode = "undirected")
 #gnel <- new("graphNEL", edgemode = "directed")
 
@@ -45,8 +62,8 @@ tokens <- strsplit(count.names, split=":")
 tbl.x <- do.call(rbind, lapply(tokens, function(token.pair) data.frame(a=token.pair[1], b=token.pair[2], stringsAsFactors=FALSE)))
 tbl.x$count <- tbl.counts$Freq
 edgeData(gnel, tbl.x$a, tbl.x$b, attr="count") <- tbl.x$count
-loadStyleFile(rcy, "style.js")
-#loadStyleFile(rcy, "updateStyle.js")
+#loadStyleFile(rcy, "style.js")
+loadStyleFile(rcy, "updateStyle.js")
 
 
 tbl.freq <- as.data.frame(table(tbl$signature))

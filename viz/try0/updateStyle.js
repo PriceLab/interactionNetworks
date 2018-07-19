@@ -34,7 +34,7 @@ vizmap = [
 	"content": "data(id)",
 	"border-width": "3px",
 	"overlay-opacity": 0.5,
-	"overlay-color": "purple"
+	"overlay-color": "yellow"
     }},
     
     {selector: 'edge', css: {
