@@ -3,9 +3,7 @@ library(igraph)
 source("analysis.R")
 source("organize.R")
 
-print(load("interaction_bundle-2018-07-19.RData"))
-
-tbl
+load("interaction_bundle-2018-07-19.RData")
 
 tbl <- fix(tbl)
 

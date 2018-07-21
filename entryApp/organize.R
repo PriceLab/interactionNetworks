@@ -2,9 +2,8 @@ print(load("interaction_bundle-2018-07-19.RData")) #which ever bundle in current
 
 #ideal format for date yyyy-mm-dd
 
-fix <- function(tbl.date)
+fix <- function(tbl)
 {
-    
     for(i in 1:nrow(tbl)) {
         if(isTRUE(nchar(tbl$a[i]) == 0)){
             tbl <- tbl[-i,]
@@ -37,6 +36,6 @@ fix <- function(tbl.date)
             tbl$date[[i]] <- sub(" ","",paste("2018-06-",day)) 
         }
     }
-    tbl <- tbl[order(tbl$date),]
+    tbl <- tbl[rev(order(tbl$date)),]
     return(tbl)
 }

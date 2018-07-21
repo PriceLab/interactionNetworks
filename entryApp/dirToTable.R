@@ -1,4 +1,5 @@
 library(RUnit)
+source("organize.R")
 
 tbl.master <- data.frame()
 #--------------------------------------------------------------------------------#
@@ -23,9 +24,11 @@ dirToTable <- function(dir, quiet=TRUE)
            tbl$mode <- "inPerson"
        stopifnot(colnames(tbl) == c("date", "a", "b", "type", "startTime", "duration", "mode"))
        tbl.master <- rbind(tbl.master, tbl)
-   } # for 
+   } # for
+
+   tbl <- fix(tbl.master)
     
-   return(tbl.master)
+   return(tbl)
    
 } # dirToTable
 #--------------------------------------------------------------------------------#

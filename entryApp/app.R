@@ -2,8 +2,17 @@ library(shiny)
 library(shinyTime)
 library(shinythemes)
 library(DT)
+library(ggplot2)
+
 
 #source("dirToTable.R")
+#source("extract.R")
+source("hist.R")
+source("organize.R")
+source("unique.R")
+
+load("interaction_bundle-2018-07-19.RData")# delete later
+
 
 #-------------------------------------------------------------------------------#
 
@@ -14,8 +23,9 @@ switchList <- internList
 staffList <- read.table("isbAllStaff",header=FALSE, sep="\t", fill=TRUE)
 dir <- "data"
 
-tbl.master <- data.frame()
-#tbl.master <- dirToTable(dir)
+#tbl <- dirToTable(dir)
+tbl <- fix(tbl)
+tbl <- anon(tbl)
 
 newLine <- ""
 
@@ -70,10 +80,10 @@ ui <- fluidPage(
             tabsetPanel(
                 tabPanel("Project Summary",
                          includeHTML("projectSummary.html")),
-                tabPanel("Your Existing Network",
-                         "Your network will display here... Soon!"),
-                tabPanel("Tabular View",
-                         DT::dataTableOutput("table"))
+                tabPanel("Histogram *NEW*",
+                         plotOutput(outputId = "histPlot")),
+                tabPanel("Table View *NEW*",
+                         dataTableOutput("table"))
             )
         )
     )
@@ -83,7 +93,11 @@ ui <- fluidPage(
 
 server <- function(input,output, session) {
 
-    #output$table <- DT::renderDataTable(tbl.master) #interactive table for all interactions 
+    output$table <- DT::renderDataTable(tbl,
+                                        rownames=FALSE,
+                                        options=list(
+                                            columnDefs = list(
+                                                list(visible=FALSE,targets=c(4,5,6)))))
     
     observeEvent(input$grade, {
         if(input$grade == "under"){
@@ -103,6 +117,11 @@ server <- function(input,output, session) {
     
     output$timeTag <- renderText({
         paste("Time:")
+    })
+
+    output$histPlot <- renderPlot({
+        logHist <- unlist(lapply(tbl$date, to.dayNumber))
+        ggplot() + aes(logHist) + geom_histogram(binwidth=1, color="red", fill="green", alpha=0.2) + ggtitle("Interactions Logged") + theme(plot.title = element_text(hjust = 0.5)) + labs(y = "Frequency", x = "Days Since June 17th")
     })
     
     subCounter <- reactiveValues(countervalue = 0)
