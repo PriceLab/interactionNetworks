@@ -11,7 +11,8 @@ source("hist.R")
 source("organize.R")
 source("unique.R")
 
-load("interaction_bundle-2018-07-19.RData")# delete later
+#load("interaction_bundle-2018-07-19.RData")# delete late
+load("interaction_bundle-2018-07-23.RData")
 
 
 #-------------------------------------------------------------------------------#

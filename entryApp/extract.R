@@ -20,8 +20,7 @@ loadAndFix <- function (file.names){
     return(newLine)
     }
 
-tbls.all <- lapply(file.names, loadAndFix)
-tbl <- do.call(rbind, tbls.all)
+
 
 fix <- function(tbl)
 {
@@ -61,6 +60,8 @@ fix <- function(tbl)
     return(tbl)
 }
 
-tbl <- lapply(tbl, fix)
+tbl <- lapply(file.names, loadAndFix)
+tbl <- do.call(rbind, tbl)
+#tbl <- lapply(tbl, fix)
 
 save(tbl, file = filename)
