@@ -11,21 +11,18 @@ vizmap = [
 	"height":"mapData(count, 0.0, 120.0, 30.0, 100.0)",
 	"color":"black",
 	//"background-color": "mapData(pearson, -1.0, 0, green, blue)"
-	"background-color":"mapData(newman, -1.0, 0.0, white, red)",
-	"background-color":"mapData(newman, 0.0, 1.0, white, blue)",
 	"font-size":"8px"}},
     
     {selector:"node[employmentCategory='intern']", css: {
         "shape": "roundrectangle"
     }},
     
-    {selector: "node[newman < 0]", css: {
-	"background-color": "mapData(newman, -1.0, 0.0, red, white)"
-    }}, 
-
-    {selector: "node[newman >= 0]", css: {
-	"background-color": "mapData(newman, 0.0, 1.0. white, blue)"
-    }}, 
+    {selector:"node[newman < 0]", css: {
+	"background-color": "mapData(newman, -0.5, 0.0, orange, white)"
+    }},
+    {selector:"node[newman >= 0]", css: {
+	"background-color": "mapData(newman, 0.0, 0.5, white, blue)"
+    }},
 
     {selector:"node:selected", css: {
 	"text-valign":"center",
@@ -34,7 +31,7 @@ vizmap = [
 	"content": "data(id)",
 	"border-width": "3px",
 	"overlay-opacity": 0.5,
-	"overlay-color": "yellow"
+	"overlay-color": "green"
     }},
     
     {selector: 'edge', css: {

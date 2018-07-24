@@ -2,10 +2,16 @@ library(RCyjs)
 library(igraph)
 source("analysis.R")
 source("organize.R")
+source("sepDate.R")
 
-load("interaction_bundle-2018-07-19.RData")
+load("interaction_bundle-2018-07-24.RData")
 
-tbl <- fix(tbl)
+week <- "all"  # "all", 1, 2, 3, 4, 5, 6
+
+tbl <- fix(tbl) #organize.R
+
+if(week != "all")
+    tbl <- s.date(tbl, week) #sepDate.R
 
 tbl$signature <- paste(tbl$a, tbl$b, sep=":")
 
@@ -19,7 +25,7 @@ tbl.unique <- tbl[-duplicated.interactions,]
 gnel <- graph::addNode(all.nodes, gnel)
 gnel <- graph::addEdge(tbl.unique$a, tbl.unique$b, gnel)
 gi <- igraph.from.graphNEL(gnel, name = TRUE, weight = TRUE, unlist.attrs = TRUE)
-newman <- community.newman(gi)
+newman <- community.newman(gi) #analysis.R
 print(head(newman))
 
 nodeDataDefaults(gnel, attr = "type") <- "undefined"
