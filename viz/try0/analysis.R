@@ -1,19 +1,4 @@
-library(igraph)
-library(RCyjs)
-
-print(load("dataframe_07-10.RData"))
-tbl$signature <- paste(tbl$a, tbl$b, sep=":")
-
-gnel <- new("graphNEL", edgemode = "undirected") #only takes undirected edges
-
-all.nodes <- c(unique(c(tbl$a, tbl$b)))
-duplicated.interactions <- which(duplicated(tbl$signature))
-tbl.unique <- tbl[-duplicated.interactions,]
-
-gnel <- graph::addNode(all.nodes, gnel)
-gnel <- graph::addEdge(tbl.unique$a, tbl.unique$b, gnel)
-gi <- igraph.from.graphNEL(gnel, name = TRUE, weight = TRUE, unlist.attrs = TRUE)
-
+#--------------------------------------------------------------------------------
 community.newman <- function(gi)
 {
     deg <- igraph::degree(gi)
@@ -22,7 +7,28 @@ community.newman <- function(gi)
     diag(B) <- 0
     eigen(B)$vectors[,1]
 } #community.newman
+#--------------------------------------------------------------------------------
+test_community.newman <- function()
+{
+    print("---test_community.newman")
+    load("interaction_bundle-2018-07-24.RData")
+    tbl <- fix(tbl) #organize.R
 
+    tbl$signature <- paste(tbl$a, tbl$b, sep=":")
+    gnel <- new("graphNEL", edgemode="undirected")
+    all.nodes <- c(unique(c(tbl$a, tbl$b)))
+    duplicated.interactions <- which(duplicated(tbl$signature))
+    tbl.unique <- tbl[-duplicated.interactions,]
+    gnel <- graph::addNode(all.nodes, gnel)
+    gnel <- graph::addEdge(tbl.unique$a, tbl.unique$b, gnel)
+    gi <- igraph.from.graphNEL(gnel, name=TRUE, weight=TRUE, unlist.attrs=TRUE)
+    newman <- community.newman(gi)
+   
+    checkEquals(length(newman), 123)
+    
+}#test_community.newman
+#--------------------------------------------------------------------------------
+#EXTRA STUFF FOR ANALYSIS
 
 scale <- function(v, a, b)
 {

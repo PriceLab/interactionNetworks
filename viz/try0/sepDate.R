@@ -1,5 +1,3 @@
-library(RUnit)
-source("organize.R")
 #--------------------------------------------------------------------------------
 s.date <- function(tbl, week)
 {
@@ -22,9 +20,9 @@ s.date <- function(tbl, week)
 #--------------------------------------------------------------------------------
 test_s.date_firstWeek <- function()
 {
-    print("---test_s.date")
+    print("---test_s.date_firstWeek")
     load("interaction_bundle-2018-07-24.RData")
-    tbl <- fix(tbl)
+    tbl <- fix(tbl) #organize.R
     week <- 1
     
     tbl <- s.date(tbl, week)
@@ -35,9 +33,9 @@ test_s.date_firstWeek <- function()
 
 test_s.date_secondWeek <- function()
 {
-    print("---test_s.date")
+    print("---test_s.date_secondWeek")
     load("interaction_bundle-2018-07-24.RData")
-    tbl <- fix(tbl)
+    tbl <- fix(tbl) #organize. R
     week <- 2
     
     tbl <- s.date(tbl, week)
