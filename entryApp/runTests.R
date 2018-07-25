@@ -1,0 +1,19 @@
+library(RCyjs)
+library(igraph)
+library(RUnit)
+source("analysis.R")
+source("organize.R")
+source("sepDate.R")
+source("hist.R")
+source("unique.R")
+#--------------------------------------------------------------------------------
+runTests <- function()
+{
+    test_fix()
+    test_s.date_firstWeek()
+    test_s.date_secondWeek()
+    test_community.newman()
+    test_anon()
+    test_to.dayNumber()
+}#runTests
+#--------------------------------------------------------------------------------

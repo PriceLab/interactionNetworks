@@ -1,21 +1,17 @@
-print(load("interaction_bundle-2018-07-19.RData")) #which ever bundle in current use
-
 #ideal format for date yyyy-mm-dd
-
+#--------------------------------------------------------------------------------
 fix <- function(tbl)
-{
+{    
     for(i in 1:nrow(tbl)) {
         if(isTRUE(nchar(tbl$a[i]) == 0)){
             tbl <- tbl[-i,]
         }
-    }
-    
+    }   
     for(i in 1:nrow(tbl)) {
         if(isTRUE(nchar(tbl$b[i]) == 0)){
             tbl <- tbl[-i,]
         }
     }
-    
     for(i in 1:nrow(tbl)) {
         if(tbl$date[[i]] == "6-19")
             tbl$date[[i]] <- "2018-06-19"
@@ -30,12 +26,22 @@ fix <- function(tbl)
             day <- substr(tbl$date[i],4,5)
             tbl$date[[i]] <- sub(" ","",paste("2018-06-",day))
         }
-        
         if(grepl("6/", tbl$date[i]) == TRUE){
             day <- substr(tbl$date[i],3,4)
             tbl$date[[i]] <- sub(" ","",paste("2018-06-",day)) 
         }
     }
-    tbl <- tbl[rev(order(tbl$date)),]
+    tbl <- tbl[order(tbl$date),]
     return(tbl)
 }
+#--------------------------------------------------------------------------------
+test_fix <- function()
+{
+    print("---test_fix")
+    load("interaction_bundle-2018-07-24.RData")
+    tbl <- fix(tbl)
+
+    checkEquals(dim(tbl), c(726,7))
+    
+}#test_fix
+#--------------------------------------------------------------------------------
