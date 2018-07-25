@@ -31,7 +31,7 @@ fix <- function(tbl)
             tbl$date[[i]] <- sub(" ","",paste("2018-06-",day)) 
         }
     }
-    tbl <- tbl[order(tbl$date),]
+    tbl <- tbl[rev(order(tbl$date)),]
     return(tbl)
 }
 #--------------------------------------------------------------------------------
