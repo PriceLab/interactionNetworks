@@ -26,9 +26,8 @@ test_s.date_firstWeek <- function()
     week <- 1
     
     tbl <- s.date(tbl, week)
-
     checkEquals(dim(tbl), c(52,7))
-    checkTrue(tbl$a[1] == "Omar Shah")
+    checkTrue(tbl$a[1] == "Ioanna Deni")
 }#test_s.date_firstWeek
 
 test_s.date_secondWeek <- function()
@@ -39,8 +38,7 @@ test_s.date_secondWeek <- function()
     week <- 2
     
     tbl <- s.date(tbl, week)
-
     checkEquals(dim(tbl), c(83,7))
-    checkTrue(tbl$a[1] == "Ana Gomes")
+    checkTrue(tbl$a[1] == "Samantha Palladino")
 }#test_s.date_secondWeek
 #--------------------------------------------------------------------------------
