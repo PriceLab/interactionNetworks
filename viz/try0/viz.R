@@ -32,6 +32,7 @@ nodeDataDefaults(gnel, attr = "type") <- "undefined"
 nodeDataDefaults(gnel, attr="newman") <- 0
 edgeDataDefaults(gnel, attr = "count") <- 0
 
+
 nodeData(gnel, nodes(gnel), attr="newman") <- newman
 
 gnel

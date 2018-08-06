@@ -12,9 +12,22 @@ vizmap = [
       "background-color":"mapData(count, 0, 120, white, red)",
       "font-size":"8px"}},
 
-    {selector:"node[employmentCategory='intern']", css: {
-        "shape": "roundrectangle"
-        }},
+    {selector:"node[nodeType='metabolite']", css: {
+        "shape": "roundrectangle",
+	"background-color":"lightblue"
+    }},
+
+     {selector:"node[nodeType='reaction']", css: {
+        "shape": "ellipse",
+	 "background-color":"lightgreen",
+	 "height":"50px",
+	 "width":"50px"
+     }},
+
+    {selector:"node[nodeType='gene']", css: {
+        "shape": "triangle",
+	"background-color":"red"
+    }},
 
    {selector:"node:selected", css: {
        "text-valign":"center",

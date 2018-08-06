@@ -1,0 +1,71 @@
+library(jsonlite)
+library(igraph)
+library(graph)
+library(RCyjs)
+vec <- ""
+#--------------------------------------------------------------------------------
+ecoli_dataExtract <- function (display=FALSE)
+{
+    json_file <- "e_coli_core.json"
+    ecoli_data <- fromJSON(json_file, flatten=TRUE)
+
+    return(ecoli_data)
+}#ecoli_dataExtract
+#--------------------------------------------------------------------------------
+ecoli_data_to_json <- function () #NOT USEFUL
+{
+    tbl <- ecoli_dataExtract()
+    length(tbl$genes$id)
+    if(length(tbl$genes$id == 0))
+        return("{}")
+
+    vector.count <- 10 * (length(tbl$genes$id) + length(tbl$metabolites$id) + length(tbl$reactions$id))
+    vec <- vector(mode="character", length=vector.count)
+    i <- 1;
+    
+    vec[i] <- '{"elements":{"nodes": ['; i <- i + 1;
+    #nodes <- 
+    
+}#ecoli_data_to_json
+#--------------------------------------------------------------------------------
+createTestiGraph <- function(nodeCount, edgeCount)
+{
+    elementCount <- nodeCount^2;
+    vec <- rep(0, elementCount)
+
+    set.seed(13);
+    vec[sample(1:elementCount, edgeCount)] <- 1
+    mtx <- matrix(vec, nrow=nodeCount)
+
+    gi <- graph_from_adjacency_matrix(mtx)
+    g <- igraph.to.graphNEL(gi)
+    edgeDataDefaults(g, attr="edgeType") <- "testEdges"
+    nodeDataDefaults(g, attr="nodeType") <- "testNodes"
+
+    gi
+}#creatTestiGraph
+#--------------------------------------------------------------------------------
+igraphToJSON <- function(gi)
+{
+    if(length(V(gi)) == 0)
+        return("{}")
+
+    vector.count <- 10 * (length(V(gi)) + length(E(gi)))
+    vec <- vector(mode="character", length=vector.count)
+    i <- 1;
+
+    vec[i] <- '{"elements": {"nodes": ['; i <- i + 1;
+    nodes <- V(gi)
+    edgeNames <- as.data.frame(as_edgelist(gi))
+    edgeNames <- paste(edgeNames$V1, edgeNames$V2)
+    edgeNames <- sub(" ", "->", edgeNames)
+    edges <- strsplit(edgeNames, " ")
+    names(edges) <- edgeNames
+
+    noa.names <- names(graph::nodeDataDefaults(gi))
+    eda.names <- names(graph::edgeDataDefaults(gi))
+    nodeCount <- length(nodes)
+    edgeCount <- length(edgeNames)
+    
+}#igraphToJSON
+#--------------------------------------------------------------------------------
