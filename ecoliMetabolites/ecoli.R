@@ -24,8 +24,26 @@ metaboliteNodes <- c(tbl$metabolites$id)
 reactionNodes <- c(tbl$reactions$id)
 geneNodes <- c(tbl$genes$id)
 
-reactionGenes <- splstring(tbl$reactions$gene_reaction_rule, " or ")
-reactionGenes <- unlist(splstring(reactionGenes, " and "))
+tbl.rx.ids <- tbl$reactions$id
+print(length(tbl.rx.ids))
+
+reactionGenes_removeOR <- strsplit(tbl$reactions$gene_reaction_rule, " or ")
+
+for(i in 1:length(tbl.rx.ids)) {
+    if(length(reactionGenes_removeOR[[i]]) > 1) {
+        tbl.rx.ids <- append(tbl.rx.ids, tbl.rx.ids[i], i+1)
+    }
+} # for loop
+
+print(length(tbl.rx.ids))
+
+browser()
+
+
+reactionGenes <- unlist(strsplit(reactionGenes, " and "))
+# 174 genes for 95 reactions
+
+
 
 gnel <- graph::addNode(metaboliteNodes, gnel)
 gnel <- graph::addNode(reactionNodes, gnel)
@@ -46,7 +64,7 @@ setGraph(rcy, gnel)
 loadStyleFile(rcy, "style.js")
 
 #--------------------------------------------------------------------------------
-ecoli_data_to_graphNEL <- function () #will be useful
+ecoli_data_to_graphNEL <- function () #will be useful, code above
 {
     tbl <- ecoli_dataExtract()
         
