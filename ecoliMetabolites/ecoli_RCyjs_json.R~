@@ -1,0 +1,4 @@
+json_file <- "e_coli_core.json"
+ecoli_data <- fromJSON(file = json_file)
+
+print(length(ecoli_data$genes))

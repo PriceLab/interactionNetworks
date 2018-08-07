@@ -4,7 +4,7 @@ source("analysis.R")
 source("organize.R")
 source("sepDate.R")
 
-load("interaction_bundle-2018-07-24.RData")
+load("interaction_bundle-2018-07-30.RData")
 
 week <- "all"  # "all", 1, 2, 3, 4, 5, 6
 
@@ -31,6 +31,7 @@ print(head(newman))
 nodeDataDefaults(gnel, attr = "type") <- "undefined"
 nodeDataDefaults(gnel, attr="newman") <- 0
 edgeDataDefaults(gnel, attr = "count") <- 0
+
 
 nodeData(gnel, nodes(gnel), attr="newman") <- newman
 

@@ -22,6 +22,8 @@ test_community.newman <- function()
     gnel <- graph::addNode(all.nodes, gnel)
     gnel <- graph::addEdge(tbl.unique$a, tbl.unique$b, gnel)
     gi <- igraph.from.graphNEL(gnel, name=TRUE, weight=TRUE, unlist.attrs=TRUE)
+    print(gi)
+    browser()
     newman <- community.newman(gi)
    
     checkEquals(length(newman), 123)
@@ -39,7 +41,6 @@ scale <- function(v, a, b)
 run <- function()
 {
     newm <- community.newman(gi)
-    browser()
     V(gi)$color <- ifelse(newm < 0, "grey", "green")
     V(gi)$size <- scale(abs(newm), 15, 25)
     E(gi)$color <- "grey"
