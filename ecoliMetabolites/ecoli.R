@@ -2,6 +2,7 @@ library(jsonlite)
 library(igraph)
 library(graph)
 library(RCyjs)
+library(rlist)
 vec <- ""
 #--------------------------------------------------------------------------------
 ecoli_dataExtract <- function (display=FALSE)
@@ -25,25 +26,33 @@ reactionNodes <- c(tbl$reactions$id)
 geneNodes <- c(tbl$genes$id)
 
 tbl.rx.ids <- tbl$reactions$id
-print(length(tbl.rx.ids))
+tbl.rx.ids.TMP <- list()
 
 reactionGenes_removeOR <- strsplit(tbl$reactions$gene_reaction_rule, " or ")
 
 for(i in 1:length(tbl.rx.ids)) {
-    if(length(reactionGenes_removeOR[[i]]) > 1) {
-        tbl.rx.ids <- append(tbl.rx.ids, tbl.rx.ids[i], i+1)
+    if(length(reactionGenes_removeOR[[i]]) == 2) {
+        tbl.rx.ids.TMP <- list.append(tbl.rx.ids.TMP, tbl.rx.ids[i], tbl.rx.ids[i])
+        #tbl.rx.ids.TMP <- append(tbl.rx.ids.TMP, tbl.rx.ids[i])
+    } else if(length(reactionGenes_removeOR[[i]]) == 3){
+        tbl.rx.ids.TMP <- list.append(tbl.rx.ids.TMP, tbl.rx.ids[i], tbl.rx.ids[i], tbl.rx.ids[i])
+    } else if(length(reactionGenes_removeOR[[i]]) == 4) {
+        tbl.rx.ids.TMP <- list.append(tbl.rx.ids.TMP, tbl.rx.ids[i], tbl.rx.ids[i], tbl.rx.ids[i], tbl.rx.ids[i])
+    }else {
+        tbl.rx.ids.TMP <- list.append(tbl.rx.ids.TMP, tbl.rx.ids[i])
     }
-} # for loop
+} # for loop DOESNT WORK
 
-print(length(tbl.rx.ids))
+print(length(tbl.rx.ids.TMP))
 
 browser()
 
 
-reactionGenes <- unlist(strsplit(reactionGenes, " and "))
+reactionGenes <- unlist(strsplit(unlist(reactionGenes_removeOR), " and "))
+
 # 174 genes for 95 reactions
 
-
+browser()
 
 gnel <- graph::addNode(metaboliteNodes, gnel)
 gnel <- graph::addNode(reactionNodes, gnel)
