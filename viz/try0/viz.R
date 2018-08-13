@@ -4,7 +4,7 @@ source("analysis.R")
 source("organize.R")
 source("sepDate.R")
 
-load("interaction_bundle-2018-08-06.RData")
+load("interaction_bundle-2018-08-10.RData")
 
 week <- "all"  # "all", 1, 2, 3, 4, 5, 6
 
