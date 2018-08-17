@@ -1,4 +1,5 @@
 library(RCyjs)
+library(jsonlite)
 #------------------------------------------------------------------------------------------------------------------------
 stopifnot(packageVersion("RCyjs") >= "2.3.9")
 if(!exists("tbl"))
@@ -33,6 +34,7 @@ run <- function()
    rcy <- x$rcy
    g <- x$g
    loadStyleFile(rcy, "style.js")
+   Sys.sleep(3)
    length(nodes(g))
    layout(rcy, "cola")
    Sys.sleep(10)
@@ -57,7 +59,7 @@ run <- function()
       setNodeAttributes(rcy, "active", actives, rep(1, length(actives)))
       setNodeAttributes(rcy, "active", inactives, rep(0, length(inactives)))
       redraw(rcy)
-      }
+   }
 
 } # run
 #------------------------------------------------------------------------------------------------------------------------
