@@ -10,46 +10,46 @@ runTests <- function()
 #----------------------------------------------------------------------------------------------------
 expandAndRuleLineToDataFrame <- function(tbl.raw)
 {   
-    tbl.raw$geneReactionRule <- gsub("(", "", tbl.raw$geneReactionRule, fixed=TRUE)
-    tbl.raw$geneReactionRule <- gsub(")", "", tbl.raw$geneReactionRule, fixed=TRUE)
+    tbl.raw$gene_reaction_rule <- gsub("(", "", tbl.raw$gene_reaction_rule, fixed=TRUE)
+    tbl.raw$gene_reaction_rule <- gsub(")", "", tbl.raw$gene_reaction_rule, fixed=TRUE)
 
-    tbl.raw$geneReactionRule <- strsplit(tbl.raw$geneReactionRule, " and ")    
+    tbl.raw$gene_reaction_rule <- strsplit(tbl.raw$gene_reaction_rule, " and ")    
 
-    tbl <- data.frame(matrix(nrow=length(tbl.raw$geneReactionRule[[1]]), ncol=2))
-    colnames(tbl) <- c("reactionName", "geneReactionRule")
+    tbl <- data.frame(matrix(nrow=length(tbl.raw$gene_reaction_rule[[1]]), ncol=2))
+    colnames(tbl) <- c("id", "gene_reaction_rule")
 
-    tbl$reactionName <- tbl.raw$reactionName
-    tbl$geneReactionRule <- tbl.raw$geneReactionRule[[1]]
+    tbl$id <- tbl.raw$id
+    tbl$gene_reaction_rule <- tbl.raw$gene_reaction_rule[[1]]
 
     tbl
 }#expandAndRuleLineToDataFrame
 #----------------------------------------------------------------------------------------------------
 expandOrRuleLineToDataFrame <- function(tbl.raw)
 {
-    tbl.raw$geneReactionRule <- gsub("(", "", tbl.raw$geneReactionRule, fixed=TRUE)
-    tbl.raw$geneReactionRule <- gsub(")", "", tbl.raw$geneReactionRule, fixed=TRUE)
+    tbl.raw$gene_reaction_rule <- gsub("(", "", tbl.raw$gene_reaction_rule, fixed=TRUE)
+    tbl.raw$gene_reaction_rule <- gsub(")", "", tbl.raw$gene_reaction_rule, fixed=TRUE)
 
-    tbl.raw$geneReactionRule <- strsplit(tbl.raw$geneReactionRule, " or ")    
+    tbl.raw$gene_reaction_rule <- strsplit(tbl.raw$gene_reaction_rule, " or ")    
 
-    tbl <- data.frame(matrix(nrow=length(tbl.raw$geneReactionRule[[1]]), ncol=2))
-    colnames(tbl) <- c("reactionName", "geneReactionRule")
+    tbl <- data.frame(matrix(nrow=length(tbl.raw$gene_reaction_rule[[1]]), ncol=2))
+    colnames(tbl) <- c("id", "gene_reaction_rule")
 
-    tbl$reactionName <- tbl.raw$reactionName
-    tbl$geneReactionRule <- tbl.raw$geneReactionRule[[1]]
+    tbl$id <- tbl.raw$id
+    tbl$gene_reaction_rule <- tbl.raw$gene_reaction_rule[[1]]
 
     tbl
 }#expandOrRuleLineToDataFrame
 #----------------------------------------------------------------------------------------------------
 expandSimpleRuleLineToDataFrame <- function(tbl.raw)
 {
-    tbl.raw$geneReactionRule <- gsub("(", "", tbl.raw$geneReactionRule, fixed=TRUE)
-    tbl.raw$geneReactionRule <- gsub(")", "", tbl.raw$geneReactionRule, fixed=TRUE)
+    tbl.raw$gene_reaction_rule <- gsub("(", "", tbl.raw$gene_reaction_rule, fixed=TRUE)
+    tbl.raw$gene_reaction_rule <- gsub(")", "", tbl.raw$gene_reaction_rule, fixed=TRUE)
 
-    tbl <- data.frame(matrix(nrow=length(tbl.raw$geneReactionRule[[1]]), ncol=2))
-    colnames(tbl) <- c("reactionName", "geneReactionRule")
+    tbl <- data.frame(matrix(nrow=length(tbl.raw$gene_reaction_rule[[1]]), ncol=2))
+    colnames(tbl) <- c("id", "gene_reaction_rule")
 
-    tbl$reactionName <- tbl.raw$reactionName
-    tbl$geneReactionRule <- tbl.raw$geneReactionRule[[1]]
+    tbl$id <- tbl.raw$id
+    tbl$gene_reaction_rule <- tbl.raw$gene_reaction_rule[[1]]
 
     tbl
 }
@@ -57,9 +57,9 @@ expandSimpleRuleLineToDataFrame <- function(tbl.raw)
 test_expandAndRuleLineToDataFrame <- function()
 {
     printf("--- test_expandAndRuleLineToDataFrame")
-    tbl.raw <- data.frame(reactionName="rx1",
-                          reactionID="ar",
-                          geneReactionRule="gene1 and gene2 and gene 3")
+    tbl.raw <- data.frame(id="rx1",
+                          name="ar",
+                          gene_reaction_rule="gene1 and gene2 and gene 3")
     
     tbl <- expandAndRuleLineToDataFrame(tbl.raw)
     checkEquals(nrow(tbl), 3)
@@ -67,10 +67,10 @@ test_expandAndRuleLineToDataFrame <- function()
 #----------------------------------------------------------------------------------------------------
 test_expandOrRuleLineToDataFrame <- function()
 {
-        printf("--- test_expandORRuleLineToDataFrame")
-    tbl.raw <- data.frame(reactionName="rx1",
-                          reactionID="ar",
-                          geneReactionRule="gene1 or gene2 or gene 3")
+    printf("--- test_expandORRuleLineToDataFrame")
+    tbl.raw <- data.frame(id="rx1",
+                          name="ar",
+                          gene_reaction_rule="gene1 or gene2 or gene 3")
     
     tbl <- expandOrRuleLineToDataFrame(tbl.raw)
     checkEquals(nrow(tbl), 3)
@@ -78,10 +78,10 @@ test_expandOrRuleLineToDataFrame <- function()
 #----------------------------------------------------------------------------------------------------
 test_expandSimpleRuleLineToDataFrame <- function()
 {
-        printf("--- test_expandSimpleRuleLineToDataFrame")
-    tbl.raw <- data.frame(reactionName="rx1",
-                          reactionID="ar",
-                          geneReactionRule="gene1")
+    printf("--- test_expandSimpleRuleLineToDataFrame")
+    tbl.raw <- data.frame(id="rx1",
+                          name="ar",
+                          gene_reaction_rule="gene1")
     
     tbl <- expandOrRuleLineToDataFrame(tbl.raw)
     checkEquals(nrow(tbl), 1)
@@ -89,9 +89,9 @@ test_expandSimpleRuleLineToDataFrame <- function()
 #----------------------------------------------------------------------------------------------------
 lineToRule <- function(tbl.raw)
 {
-   is.and.rule <- grepl(" and ", tbl.raw$geneReactionRule)
-   is.or.rule <- grepl(" or ", tbl.raw$geneReactionRule)
-
+   is.and.rule <- grepl(" and ", tbl.raw$gene_reaction_rule)
+   is.or.rule <- grepl(" or ", tbl.raw$gene_reaction_rule)
+browser()
    if(is.and.rule == TRUE) {
        expandAndRuleLineToDataFrame(tbl.raw)
    } else if(is.or.rule == TRUE) {
@@ -100,14 +100,18 @@ lineToRule <- function(tbl.raw)
        expandSimpleRuleLineToDataFrame(tbl.raw)
    }
 
+   tbl <- do.call(rbind, tbl)
+
+   print(nrow(tbl))
+
 } # lineToRule
 #----------------------------------------------------------------------------------------------------
 test_lineToReactionDataFrame <- function()
 {
    printf("--- test_lineToReactionDataFrame")
-   tbl.raw <- data.frame(reactionName=c("rx1", "rx2", "rx3"),
-                         reactionID=c("ar", "br","cr"),
-                         geneReactionRule=c("gene1", "gene2 or gene3", "gene4 and gene5 and gene6"),
+   tbl.raw <- data.frame(id=c("rx1", "rx2", "rx3"),
+                         name=c("ar", "br","cr"),
+                         gene_reaction_rule=c("gene1", "gene2 or gene3", "gene4 and gene5 and gene6"),
                          stringsAsFactors=FALSE)
 
    tbl.out.1 <- lineToRule(tbl.raw[1,])
@@ -118,6 +122,8 @@ test_lineToReactionDataFrame <- function()
 
    tbl.out.3 <- lineToRule(tbl.raw[3,])
    checkEquals(nrow(tbl.out.3), 3)
+
+   tbl.out <- lineToRule(tbl.raw)
 
 } # test_lineToReactionDataFrame
 #----------------------------------------------------------------------------------------------------

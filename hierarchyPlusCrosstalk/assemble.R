@@ -1,6 +1,8 @@
 library(graph)
 library(RCyjs)
 
+load("interaction_bundle-2018-08-16.RData")
+
 tbl.staff <- read.table("isbStaffList.txt", sep="\t", as.is=TRUE)
 colnames(tbl.staff) <- c("name", "title")
 subset(tbl.staff, title=="")
@@ -25,6 +27,7 @@ length(intersect(lab.groups, people))
 all.nodes <- c(people, lab.groups)
 
 g <- graphNEL(edgemode="directed")
+
 g <- addNode(all.nodes, g)
 g <- addEdge(tbl$name, tbl$group, g)
 
@@ -35,7 +38,16 @@ layout(rcy, "cose")
 
 
 g.interactions <- graphNEL(edgemode="directed")
-two.random.people <- c("Audrey Clay-Streib", "Mukul Midha")
-g.interactions <- addNode(two.random.people, g.interactions)
-g.interactions <- addEdge(two.random.people[1], two.random.people[2], g.interactions)
+interaction.nodes <- c(unique(c(tbl$a, tbl$b)))
+duplicated.interactions <- which(duplicated(tbl$signature))
+tbl.unique <- tbl[-duplicated.interactions,]
+
+g.interactions <- addNode(interaction.nodes, g.interactions)
+g.interactions <- graph::addEdge(tbl.unique$a, tbl.unique$b, g.interactions)
+
 addGraph(rcy, g.interactions)
+
+edgeDataDefaults(g, attr="type") <- "undefined"
+edgeData(g, tbl.unique$a, tbl.unique$b, attr="type") <- "interaction"
+
+loadStyleFile(rcy, "style.js")

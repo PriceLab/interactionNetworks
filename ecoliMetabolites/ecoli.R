@@ -3,17 +3,13 @@ library(igraph)
 library(graph)
 library(RCyjs)
 library(rlist)
+
+source("reactionGeneToDataFrame.R")
+
 vec <- ""
 #--------------------------------------------------------------------------------
-ecoli_dataExtract <- function (display=FALSE)
-{
-    json_file <- "e_coli_core.json"
-    ecoli_data <- fromJSON(json_file, flatten=TRUE)
-
-    return(ecoli_data)
-}#ecoli_dataExtract
-#--------------------------------------------------------------------------------
-tbl <- ecoli_dataExtract()
+json_file <- "e_coli_core.json"
+tbl <- fromJSON(json_file, flatten=TRUE)
 
 print(length(tbl$genes$id))
 if(length(tbl$genes$id) == 0)
@@ -33,7 +29,6 @@ reactionGenes_removeOR <- strsplit(tbl$reactions$gene_reaction_rule, " or ")
 for(i in 1:length(tbl.rx.ids)) {
     if(length(reactionGenes_removeOR[[i]]) == 2) {
         tbl.rx.ids.TMP <- list.append(tbl.rx.ids.TMP, tbl.rx.ids[i], tbl.rx.ids[i])
-        #tbl.rx.ids.TMP <- append(tbl.rx.ids.TMP, tbl.rx.ids[i])
     } else if(length(reactionGenes_removeOR[[i]]) == 3){
         tbl.rx.ids.TMP <- list.append(tbl.rx.ids.TMP, tbl.rx.ids[i], tbl.rx.ids[i], tbl.rx.ids[i])
     } else if(length(reactionGenes_removeOR[[i]]) == 4) {
@@ -41,18 +36,13 @@ for(i in 1:length(tbl.rx.ids)) {
     }else {
         tbl.rx.ids.TMP <- list.append(tbl.rx.ids.TMP, tbl.rx.ids[i])
     }
-} # for loop DOESNT WORK
+} # for loop
 
 print(length(tbl.rx.ids.TMP))
-
-browser()
-
 
 reactionGenes <- unlist(strsplit(unlist(reactionGenes_removeOR), " and "))
 
 # 174 genes for 95 reactions
-
-browser()
 
 gnel <- graph::addNode(metaboliteNodes, gnel)
 gnel <- graph::addNode(reactionNodes, gnel)
@@ -71,7 +61,6 @@ rcy <- RCyjs()
 setGraph(rcy, gnel)
 
 loadStyleFile(rcy, "style.js")
-
 #--------------------------------------------------------------------------------
 ecoli_data_to_graphNEL <- function () #will be useful, code above
 {
